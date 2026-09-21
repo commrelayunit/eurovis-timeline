@@ -1,0 +1,7 @@
+{
+  "elements": ["html5"],
+  "rules": {
+    "no-implicit-button-type": "off",
+    "text-content": "off"
+  }
+}
