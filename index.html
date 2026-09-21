@@ -3,122 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="EuroVis 2027 Workshops call timeline for Stuttgart, Germany.">
-  <title>EuroVis 2027 · Workshops timeline</title>
+  <meta name="description" content="EuroVis 2027 conference timeline, with published Workshop dates and clearly labelled 2026 reference dates for pending calls.">
+  <title>EuroVis 2027 · Conference timeline</title>
   <style>
-    :root { --ink:#26313a; --blue:#004191; --sky:#00beff; --orange:#ef9800; --paper:#f6f8fb; --line:#c8d4df; --muted:#5e6b76; }
-    * { box-sizing:border-box; }
-    html { color:var(--ink); background:var(--paper); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
-    body { margin:0; min-width:320px; }
-    a { color:inherit; }
-    a:focus-visible, button:focus-visible, summary:focus-visible { outline:3px solid var(--sky); outline-offset:4px; }
-    .shell { width:min(1120px, calc(100% - 40px)); margin:auto; }
-    .masthead { color:white; overflow:hidden; background:var(--blue); position:relative; }
-    .masthead::before, .masthead::after { content:""; position:absolute; border-radius:50%; pointer-events:none; }
-    .masthead::before { width:36rem; height:36rem; right:-15rem; top:-22rem; border:2.25rem solid rgba(0,190,255,.46); }
-    .masthead::after { width:18rem; height:18rem; right:8%; bottom:-14rem; background:var(--orange); opacity:.96; }
-    .masthead .shell { min-height:290px; padding:38px 0 50px; position:relative; z-index:1; display:flex; flex-direction:column; justify-content:space-between; }
-    .eyebrow { margin:0; color:#bfefff; font-size:.78rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; }
-    h1 { max-width:740px; margin:18px 0 12px; font-size:clamp(2.3rem,6vw,5.2rem); line-height:.92; letter-spacing:-.065em; }
-    .location { margin:0; font-size:clamp(1rem,2vw,1.22rem); font-weight:600; }
-    .location span { color:#bfefff; }
-    main { padding:clamp(32px,6vw,72px) 0; }
-    .intro { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(220px,.75fr); gap:32px; align-items:end; margin-bottom:52px; }
-    .intro .eyebrow { color:var(--blue); }
-    h2 { margin:0 0 12px; font-size:clamp(1.7rem,3.5vw,2.8rem); letter-spacing:-.045em; line-height:1; }
-    .lede { max-width:660px; margin:0; color:var(--muted); font-size:1.08rem; line-height:1.65; }
-    .notice { margin:0; padding:19px 20px; color:var(--blue); background:#dff6ff; border-left:5px solid var(--sky); font-size:.96rem; line-height:1.5; }
-    .timeline { position:relative; margin:0; padding:0; list-style:none; }
-    .timeline::before { content:""; position:absolute; top:31px; bottom:31px; left:50%; width:2px; background:var(--line); transform:translateX(-50%); }
-    .milestone { display:grid; grid-template-columns:1fr 1fr; position:relative; min-height:194px; }
-    .milestone:nth-child(odd) .card { grid-column:1; margin-right:54px; }
-    .milestone:nth-child(even) .card { grid-column:2; margin-left:54px; }
-    .marker { position:absolute; left:50%; top:27px; z-index:1; width:18px; height:18px; background:var(--orange); border:4px solid var(--paper); border-radius:50%; box-shadow:0 0 0 2px var(--orange); transform:translateX(-50%); }
-    .milestone:last-child .marker { background:var(--sky); box-shadow:0 0 0 2px var(--sky); }
-    .card { align-self:start; padding:26px; background:white; border:1px solid #dce4eb; box-shadow:0 12px 32px rgba(20,45,70,.08); transition:transform .2s ease,box-shadow .2s ease; }
-    .card:hover, .card:focus-within { transform:translateY(-4px); box-shadow:0 18px 40px rgba(20,45,70,.14); }
-    .stage { margin:0 0 8px; color:var(--blue); font-size:.76rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
-    h3 { margin:0; font-size:1.35rem; letter-spacing:-.025em; }
-    time { display:block; margin:12px 0 0; font-size:1.05rem; font-weight:700; }
-    .deadline { margin:9px 0 0; color:var(--muted); font-size:.91rem; }
-    details { margin-top:17px; border-top:1px solid #e4eaf0; padding-top:13px; }
-    summary { cursor:pointer; color:var(--blue); font-weight:750; }
-    details p { margin:12px 0 0; color:var(--muted); font-size:.92rem; line-height:1.55; }
-    .card-link { display:inline-flex; align-items:center; gap:8px; margin-top:19px; color:var(--blue); font-size:.92rem; font-weight:750; text-decoration-thickness:2px; text-underline-offset:3px; }
-    .card-link::after { content:"↗"; font-size:1.1em; }
-    .next { margin:7px 0 0; padding:29px; background:var(--ink); color:white; }
-    .next h2 { font-size:1.5rem; }
-    .next p { max-width:640px; margin:10px 0 0; color:#d8e1e8; line-height:1.6; }
-    footer { padding:0 0 36px; color:var(--muted); font-size:.82rem; }
-    footer p { margin:0; border-top:1px solid #dce4eb; padding-top:20px; }
-    @media (max-width:700px) {
-      .shell { width:min(100% - 32px, 560px); }
-      .masthead .shell { min-height:270px; padding:30px 0 36px; }
-      .intro { grid-template-columns:1fr; gap:23px; margin-bottom:35px; }
-      .timeline::before { left:9px; top:26px; bottom:26px; }
-      .milestone { display:block; min-height:0; padding-left:34px; margin-bottom:22px; }
-      .milestone:nth-child(n) .card { margin:0; }
-      .marker { left:9px; top:24px; }
-      .card { padding:22px; }
-      .next { margin-left:34px; padding:24px; }
-    }
-    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; } }
+    :root { --ink:#26313a; --blue:#004191; --sky:#00beff; --orange:#ef9800; --paper:#f6f8fb; --line:#c8d4df; --muted:#586773; --card:#fff; --reference:#6a4d14; --reference-bg:#fff4d8; --published:#075d39; --published-bg:#d9f5e8; }
+    * { box-sizing:border-box; } html { color:var(--ink); background:var(--paper); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; } body { margin:0; min-width:320px; } a { color:inherit; } a:focus-visible,button:focus-visible { outline:3px solid var(--sky); outline-offset:4px; }
+    .shell { width:min(1180px,calc(100% - 40px)); margin:auto; }.masthead { color:#fff; overflow:hidden; background:var(--blue); position:relative; }.masthead::before,.masthead::after { content:""; position:absolute; border-radius:50%; pointer-events:none; }.masthead::before { width:36rem;height:36rem;right:-15rem;top:-22rem;border:2.25rem solid rgba(0,190,255,.46); }.masthead::after { width:18rem;height:18rem;right:8%;bottom:-14rem;background:var(--orange); }.masthead .shell { min-height:288px;padding:38px 0 48px;position:relative;z-index:1;display:flex;flex-direction:column;justify-content:space-between; }.eyebrow { margin:0;color:#bfefff;font-size:.78rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase; } h1 { max-width:740px;margin:18px 0 12px;font-size:clamp(2.3rem,6vw,5.2rem);line-height:.92;letter-spacing:-.065em; }.location { margin:0;font-size:clamp(1rem,2vw,1.22rem);font-weight:600; }.location span { color:#bfefff; }
+    main { padding:clamp(32px,6vw,72px) 0; }.intro { display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:32px;align-items:end;margin-bottom:35px; }.intro .eyebrow { color:var(--blue); } h2 { margin:0 0 12px;font-size:clamp(1.7rem,3.5vw,2.8rem);letter-spacing:-.045em;line-height:1; }.lede { max-width:700px;margin:0;color:var(--muted);font-size:1.08rem;line-height:1.65; }.notice { margin:0;padding:19px 20px;color:var(--blue);background:#dff6ff;border-left:5px solid var(--sky);font-size:.96rem;line-height:1.5; }
+    .legend { display:flex;flex-wrap:wrap;gap:10px 18px;margin:0 0 25px;padding:17px 20px;background:#fff;border:1px solid #dce4eb; }.legend p { margin:0;font-size:.9rem;line-height:1.45; }.chip { display:inline-flex;align-items:center;width:max-content;padding:4px 8px;border-radius:999px;font-size:.69rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase; }.chip.published { color:var(--published);background:var(--published-bg); }.chip.reference { color:var(--reference);background:var(--reference-bg); }
+    .filters { margin:0 0 24px; }.filters h2 { font-size:1.08rem;margin-bottom:12px; }.filter-list { display:flex;flex-wrap:wrap;gap:8px; }.filter { cursor:pointer;padding:8px 11px;border:1px solid #b9c7d3;border-radius:999px;color:var(--ink);background:#fff;font:inherit;font-size:.86rem;font-weight:700; }.filter[aria-pressed="true"] { border-color:var(--blue);color:#fff;background:var(--blue); }.filter:hover { border-color:var(--blue); }
+    .tracks { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px; }.track { display:flex;flex-direction:column;min-width:0;padding:24px;background:var(--card);border:1px solid #dce4eb;box-shadow:0 12px 32px rgba(20,45,70,.08); }.track[hidden] { display:none; }.track:hover,.track:focus-within { transform:translateY(-3px);box-shadow:0 18px 40px rgba(20,45,70,.14); }.track-head { display:flex;align-items:flex-start;gap:12px;margin-bottom:18px; }.track-mark { flex:0 0 auto;width:13px;height:13px;margin-top:5px;border-radius:50%;background:var(--track);box-shadow:0 0 0 4px color-mix(in srgb,var(--track) 15%,white); }.track h3 { margin:0;font-size:1.3rem;letter-spacing:-.025em; }.track-head .chip { margin-top:6px;margin-left:auto; }.track-note { margin:4px 0 0;color:var(--muted);font-size:.87rem;line-height:1.45; }.milestones { margin:0;padding:0;list-style:none;border-top:1px solid #e4eaf0; }.milestones li { display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:12px 0;border-bottom:1px solid #e4eaf0; }.milestones strong { font-size:.94rem;line-height:1.35; }.milestones time { color:var(--muted);font-size:.84rem;text-align:right;white-space:nowrap; }.call-link { display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:var(--blue);font-size:.9rem;font-weight:750;text-decoration-thickness:2px;text-underline-offset:3px; }.call-link::after { content:"↗";font-size:1.1em; }.status { margin-top:35px;padding:28px;background:var(--ink);color:#fff; }.status h2 { font-size:1.45rem; }.status p { max-width:750px;margin:10px 0 0;color:#d8e1e8;line-height:1.6; } footer { padding:0 0 36px;color:var(--muted);font-size:.82rem; } footer p { margin:0;border-top:1px solid #dce4eb;padding-top:20px; }
+    @media (max-width:760px) { .shell { width:min(100% - 32px,560px); }.masthead .shell { min-height:270px;padding:30px 0 36px; }.intro { grid-template-columns:1fr;gap:23px;margin-bottom:28px; }.tracks { grid-template-columns:1fr; }.track { padding:21px; }.milestones li { grid-template-columns:1fr;gap:3px; }.milestones time { text-align:left;white-space:normal; }.track-head { gap:10px; }.track-head .chip { margin-left:0; }.track-head { flex-wrap:wrap; }.track-note { padding-left:23px; }.status { padding:24px; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important;transition-duration:.01ms!important; } }
   </style>
 </head>
 <body>
-  <header class="masthead">
-    <div class="shell">
-      <p class="eyebrow">The Eurographics Conference on Visualization</p>
-      <div>
-        <h1>EuroVis<br>2027</h1>
-        <p class="location"><span>Stuttgart, Germany</span> · Workshops call</p>
-      </div>
-    </div>
-  </header>
+  <header class="masthead"><div class="shell"><p class="eyebrow">The Eurographics Conference on Visualization</p><div><h1>EuroVis<br>2027</h1><p class="location"><span>Stuttgart, Germany</span> · Conference timeline</p></div></div></header>
   <main class="shell">
-    <section class="intro" aria-labelledby="timeline-heading">
-      <div>
-        <p class="eyebrow">Call for Workshops</p>
-        <h2 id="timeline-heading">Two dates to put on your calendar.</h2>
-        <p class="lede">The currently published EuroVis 2027 Workshops call has two milestones. Explore each card for a concise reminder, then visit the official call for the full proposal guidance.</p>
-      </div>
-      <p class="notice"><strong>Deadline convention</strong><br>All deadlines are at 23:59 Anywhere on Earth (AoE).</p>
+    <section class="intro" aria-labelledby="timeline-heading"><div><p class="eyebrow">Calls &amp; milestones</p><h2 id="timeline-heading">One conference. Every track in view.</h2><p class="lede">Workshops now have official EuroVis 2027 dates. The remaining tracks stay visible with their EuroVis 2026 milestone dates as planning references only—not announced 2027 deadlines.</p></div><p class="notice"><strong>Read the status first</strong><br>Published Workshop deadlines are 23:59 Anywhere on Earth (AoE). Reference dates retain the original 2026 dates and must be confirmed against the official 2027 call.</p></section>
+    <section class="legend" aria-label="Date status legend"><p><span class="chip published">Published · 2027</span> Official Workshops call dates.</p><p><span class="chip reference">Reference · 2026</span> Prior-year dates carried forward pending a 2027 announcement.</p></section>
+    <section class="filters" aria-labelledby="filter-heading"><h2 id="filter-heading">Focus a track</h2><div class="filter-list" role="group" aria-label="Filter timeline tracks"><button class="filter" type="button" data-filter="all" aria-pressed="true">All tracks</button><button class="filter" type="button" data-filter="full">Full Papers</button><button class="filter" type="button" data-filter="short">Short Papers</button><button class="filter" type="button" data-filter="star">STARs</button><button class="filter" type="button" data-filter="panels">Panels &amp; Tutorials</button><button class="filter" type="button" data-filter="workshops">Workshops</button><button class="filter" type="button" data-filter="education">Education Papers</button><button class="filter" type="button" data-filter="posters">Posters &amp; Demos</button></div></section>
+    <section class="tracks" aria-label="EuroVis 2027 track timeline">
+      <article class="track" data-track="full" style="--track:#e32017"><header class="track-head"><span class="track-mark" aria-hidden="true"></span><div><h3>Full Papers</h3><p class="track-note">EuroVis 2026 reference milestones</p></div><span class="chip reference">Reference · 2026</span></header><ul class="milestones"><li><strong>Abstract deadline</strong><time datetime="2025-11-26">26 Nov 2025</time></li><li><strong>Full paper deadline</strong><time datetime="2025-12-03">3 Dec 2025</time></li><li><strong>First-round notification</strong><time datetime="2026-02-11">11 Feb 2026</time></li><li><strong>Revised submission</strong><time datetime="2026-03-04">4 Mar 2026</time></li><li><strong>Final notification</strong><time datetime="2026-03-18">18 Mar 2026</time></li><li><strong>Camera-ready version</strong><time datetime="2026-04-15">15 Apr 2026</time></li></ul><a class="call-link" href="https://eurovis27.github.io/web/" target="_blank" rel="noopener noreferrer">Check official EuroVis 2027 calls</a></article>
+      <article class="track" data-track="short" style="--track:#b36305"><header class="track-head"><span class="track-mark" aria-hidden="true"></span><div><h3>Short Papers</h3><p class="track-note">EuroVis 2026 reference milestones</p></div><span class="chip reference">Reference · 2026</span></header><ul class="milestones"><li><strong>Submission deadline</strong><time datetime="2026-02-18">18 Feb 2026</time></li><li><strong>Acceptance notification</strong><time datetime="2026-04-01">1 Apr 2026</time></li><li><strong>Camera-ready version</strong><time datetime="2026-04-22">22 Apr 2026</time></li></ul><a class="call-link" href="https://eurovis27.github.io/web/" target="_blank" rel="noopener noreferrer">Check official EuroVis 2027 calls</a></article>
+      <article class="track" data-track="star" style="--track:#a78200"><header class="track-head"><span class="track-mark" aria-hidden="true"></span><div><h3>STARs</h3><p class="track-note">EuroVis 2026 reference milestones</p></div><span class="chip reference">Reference · 2026</span></header><ul class="milestones"><li><strong>STAR sketch submission</strong><time datetime="2025-10-13">13 Oct 2025</time></li><li><strong>Invitation for full STAR</strong><time datetime="2025-11-05">5 Nov 2025</time></li><li><strong>Full STAR submission</strong><time datetime="2026-01-12">12 Jan 2026</time></li><li><strong>Full STAR notification</strong><time datetime="2026-03-12">12 Mar 2026</time></li><li><strong>Second-round submission</strong><time datetime="2026-04-03">3 Apr 2026</time></li><li><strong>Second review notification</strong><time datetime="2026-04-08">8 Apr 2026</time></li><li><strong>Camera-ready deadline</strong><time datetime="2026-04-22">22 Apr 2026</time></li></ul><a class="call-link" href="https://eurovis27.github.io/web/" target="_blank" rel="noopener noreferrer">Check official EuroVis 2027 calls</a></article>
+      <article class="track" data-track="panels" style="--track:#003688"><header class="track-head"><span class="track-mark" aria-hidden="true"></span><div><h3>Panels &amp; Tutorials</h3><p class="track-note">EuroVis 2026 reference milestones</p></div><span class="chip reference">Reference · 2026</span></header><ul class="milestones"><li><strong>Submission deadline</strong><time datetime="2026-02-25">25 Feb 2026</time></li><li><strong>Conditional notification</strong><time datetime="2026-03-04">4 Mar 2026</time></li><li><strong>Camera-ready abstract</strong><time datetime="2026-04-15">15 Apr 2026</time></li></ul><a class="call-link" href="https://eurovis27.github.io/web/" target="_blank" rel="noopener noreferrer">Check official EuroVis 2027 calls</a></article>
+      <article class="track" data-track="workshops" style="--track:#00782a"><header class="track-head"><span class="track-mark" aria-hidden="true"></span><div><h3>Workshops</h3><p class="track-note">Official EuroVis 2027 call</p></div><span class="chip published">Published · 2027</span></header><ul class="milestones"><li><strong>Proposal submission</strong><time datetime="2026-10-12">Monday, 12 Oct 2026</time></li><li><strong>Notification</strong><time datetime="2026-10-26">Monday, 26 Oct 2026</time></li></ul><p class="track-note">Both deadlines are at 23:59 AoE.</p><a class="call-link" href="https://eurovis27.github.io/web/submissions/workshops/" target="_blank" rel="noopener noreferrer">Read the official Workshops call</a></article>
+      <article class="track" data-track="education" style="--track:#9b0056"><header class="track-head"><span class="track-mark" aria-hidden="true"></span><div><h3>Education Papers</h3><p class="track-note">EuroVis 2026 reference milestones</p></div><span class="chip reference">Reference · 2026</span></header><ul class="milestones"><li><strong>Submission</strong><time datetime="2026-01-12">12 Jan 2026</time></li><li><strong>Notification</strong><time datetime="2026-03-05">5 Mar 2026</time></li><li><strong>Camera-ready</strong><time datetime="2026-04-06">6 Apr 2026</time></li></ul><a class="call-link" href="https://eurovis27.github.io/web/" target="_blank" rel="noopener noreferrer">Check official EuroVis 2027 calls</a></article>
+      <article class="track" data-track="posters" style="--track:#0098d4"><header class="track-head"><span class="track-mark" aria-hidden="true"></span><div><h3>Posters &amp; Demos</h3><p class="track-note">EuroVis 2026 reference milestones</p></div><span class="chip reference">Reference · 2026</span></header><ul class="milestones"><li><strong>Submission</strong><time datetime="2026-04-05">5 Apr 2026</time></li><li><strong>Notification</strong><time datetime="2026-04-27">27 Apr 2026</time></li><li><strong>Camera-ready</strong><time datetime="2026-05-04">4 May 2026</time></li></ul><a class="call-link" href="https://eurovis27.github.io/web/" target="_blank" rel="noopener noreferrer">Check official EuroVis 2027 calls</a></article>
     </section>
-    <ol class="timeline" aria-label="EuroVis 2027 Workshops call timeline">
-      <li class="milestone">
-        <span class="marker" aria-hidden="true"></span>
-        <article class="card">
-          <p class="stage">First milestone</p>
-          <h3>Proposal Submission</h3>
-          <time datetime="2026-10-12">Monday, October 12, 2026</time>
-          <p class="deadline">Due by 23:59 AoE</p>
-          <details>
-            <summary>What to prepare</summary>
-            <p>Workshop proposals are the first step in the published call. Consult the official page for requirements, evaluation criteria, and the proposal template.</p>
-          </details>
-          <a class="card-link" href="https://eurovis27.github.io/web/submissions/workshops/" target="_blank" rel="noopener noreferrer">Read the official call</a>
-        </article>
-      </li>
-      <li class="milestone">
-        <span class="marker" aria-hidden="true"></span>
-        <article class="card">
-          <p class="stage">Decision</p>
-          <h3>Notification</h3>
-          <time datetime="2026-10-26">Monday, October 26, 2026</time>
-          <p class="deadline">By 23:59 AoE</p>
-          <details>
-            <summary>Why this milestone matters</summary>
-            <p>This is the published notification date for workshop proposals. Further workshop dates have not been added here until they are officially announced.</p>
-          </details>
-          <a class="card-link" href="https://eurovis27.github.io/web/submissions/workshops/" target="_blank" rel="noopener noreferrer">View call updates</a>
-        </article>
-      </li>
-    </ol>
-    <section class="next" aria-labelledby="next-heading">
-      <h2 id="next-heading">More dates will follow.</h2>
-      <p>This timeline intentionally includes only deadlines published by EuroVis 2027. It will grow as additional calls and milestones are announced.</p>
-    </section>
+    <section class="status" aria-labelledby="status-heading"><h2 id="status-heading">Planning reference, not a prediction.</h2><p>Until an official call is published, a track’s dates remain EuroVis 2026 reference milestones. Confirm every pending deadline on the official EuroVis 2027 website before making plans.</p></section>
   </main>
   <footer class="shell"><p>Timeline information is linked to the official <a href="https://eurovis27.github.io/web/" target="_blank" rel="noopener noreferrer">EuroVis 2027 website</a>. This independent timeline uses an original text treatment; no official logo or site artwork is reproduced.</p></footer>
+  <script>
+    const filters = document.querySelectorAll('.filter');
+    const tracks = document.querySelectorAll('.track');
+    filters.forEach((button) => button.addEventListener('click', () => {
+      const selection = button.dataset.filter;
+      filters.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      tracks.forEach((track) => { track.hidden = selection !== 'all' && track.dataset.track !== selection; });
+    }));
+  </script>
 </body>
 </html>
