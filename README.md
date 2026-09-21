@@ -1,95 +1,26 @@
-# EuroVis 2026 Conference Interactive Timeline
+# EuroVis 2027 Conference Timeline
 
-This is an **interactive visual timeline** for the EuroVis 2026 conference deadlines and tracks. It displays multiple conference tracks with their key milestones, deadlines, and notifications in a clear, color-coded timeline view.
+A responsive, accessible conference-wide timeline for EuroVis 2027 in Stuttgart, Germany.
 
-<img width="2560" height="1305" alt="image" src="https://github.com/user-attachments/assets/16cd2939-1238-4f6d-959e-92fa3254b15b" />
+## Date status
 
+The page intentionally distinguishes two kinds of information:
 
-
----
+- **Published EuroVis 2027 dates:** the Workshops call is official. Proposal Submission is **Monday, October 12, 2026**, and Notification is **Monday, October 26, 2026**. Both are at 23:59 Anywhere on Earth (AoE). Workshop cards link to the [official Workshops call](https://eurovis27.github.io/web/submissions/workshops/).
+- **EuroVis 2026 reference dates:** Full Papers, Short Papers, STARs, Panels & Tutorials, Education Papers, and Posters & Demos retain the previous conference's dates solely as planning references while their 2027 calls are unpublished. They are not 2027 deadlines, and every pending-track card links to the [official EuroVis 2027 website](https://eurovis27.github.io/web/) for confirmation.
 
 ## Features
 
-- Displays multiple tracks with distinct colors and labels (e.g., Full Papers, Short Papers, Workshops, etc.).
-- Shows important dates and deadlines as milestone icons with tooltips.
-- Responsive layout: switches between horizontal and vertical timeline based on window width.
-- Hover tooltips provide detailed information about each milestone.
-- Clickable milestones can link to URLs (currently empty placeholders).
-- "Today" indicator line (configurable for testing).
-- Easily extendable to other conferences or events by modifying the `data` array.
+- All conference tracks appear together, with a compact track filter for focused planning.
+- Per-track status chips and a page legend make published and provisional dates distinct.
+- Semantic headings, lists, time elements, keyboard-operable filters, and visible focus states.
+- Responsive two-column cards that collapse to a single, readable mobile flow.
+- Original text-based visual identity; no official logo or artwork is reproduced.
 
----
+## Run
 
-## Usage
-
-### How to run
-
-1. Save the provided code as `index.html`.
-2. Open it in any modern web browser (Chrome, Firefox, Edge, Safari).
-3. Resize the window to see the layout adapt between horizontal and vertical modes.
-
-### How to customize
-
-- The timeline data is stored in the `data` array inside the `<script>` tag.
-- Each track object has:
-  - `track`: Full track name
-  - `label`: Short label shown on the timeline
-  - `color`: Color for the track line and icons (hex code)
-  - `dates`: Array of milestone objects with:
-    - `date`: Deadline date (format MM/YYYY or DD/MM/YY)
-    - `name`: Milestone description
-    - `type`: Type of milestone (controls icon and tooltip)
-    - `url`: Optional URL to open on click (currently empty)
-- To add or modify tracks or deadlines, update this `data` array accordingly.
-
-### Supported milestone types and icons
-
-| Type          | Icon | Description                       |
-|---------------|------|---------------------------------|
-| start         | 📄   | Submission or beginning          |
-| abstract      | 📝   | Abstract deadline                |
-| submission    | 📬   | Submission deadline              |
-| review        | 🔍   | Review period                   |
-| notification  | 📢   | Notification of decisions        |
-| cameraReady   | 🖨️   | Final camera-ready submission    |
-| end           | ✅   | Final deadline or milestone      |
-| invitation    | ✉️   | Invitation to submit             |
-
----
-
-## Dependencies
-
-- [D3.js v7](https://d3js.org/d3.v7.min.js) for rendering SVG elements and scales.
-
----
-
-## Notes
-
-- The timeline automatically scales to fit the window size.
-- Milestones display tooltips on hover.
-- The "Today" line can be set to a specific date for testing by uncommenting and modifying the `today` variable in the script.
-- The project is designed to be generic and reusable for any multi-track event timeline — just update the `data` array.
-
----
+Open `index.html` in a modern browser. No build step or dependencies are required.
 
 ## License
 
-This project is released under the MIT License.
-
----
-
-Feel free to contribute improvements or extend this timeline for your own conferences or events!
-
----
-
-*Created for EuroVis 2026 visualization and planning.*
-
----
-
-## Author
-
-[![velitchko's github](https://github.com/velitchko.png?size=40)](https://github.com/velitchko)  
-[@velitchko](https://github.com/velitchko)
-
-Feel free to reach out or follow for updates!
-
+MIT
