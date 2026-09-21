@@ -1,505 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <title>EuroVis 2026 Timeline 🐥</title>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="EuroVis 2027 Workshops call timeline for Stuttgart, Germany.">
+  <title>EuroVis 2027 · Workshops timeline</title>
   <style>
-    html,
-    body {
-      height: 100%;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: sans-serif;
+    :root { --ink:#26313a; --blue:#004191; --sky:#00beff; --orange:#ef9800; --paper:#f6f8fb; --line:#c8d4df; --muted:#5e6b76; }
+    * { box-sizing:border-box; }
+    html { color:var(--ink); background:var(--paper); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    body { margin:0; min-width:320px; }
+    a { color:inherit; }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline:3px solid var(--sky); outline-offset:4px; }
+    .shell { width:min(1120px, calc(100% - 40px)); margin:auto; }
+    .masthead { color:white; overflow:hidden; background:var(--blue); position:relative; }
+    .masthead::before, .masthead::after { content:""; position:absolute; border-radius:50%; pointer-events:none; }
+    .masthead::before { width:36rem; height:36rem; right:-15rem; top:-22rem; border:2.25rem solid rgba(0,190,255,.46); }
+    .masthead::after { width:18rem; height:18rem; right:8%; bottom:-14rem; background:var(--orange); opacity:.96; }
+    .masthead .shell { min-height:290px; padding:38px 0 50px; position:relative; z-index:1; display:flex; flex-direction:column; justify-content:space-between; }
+    .eyebrow { margin:0; color:#bfefff; font-size:.78rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; }
+    h1 { max-width:740px; margin:18px 0 12px; font-size:clamp(2.3rem,6vw,5.2rem); line-height:.92; letter-spacing:-.065em; }
+    .location { margin:0; font-size:clamp(1rem,2vw,1.22rem); font-weight:600; }
+    .location span { color:#bfefff; }
+    main { padding:clamp(32px,6vw,72px) 0; }
+    .intro { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(220px,.75fr); gap:32px; align-items:end; margin-bottom:52px; }
+    .intro .eyebrow { color:var(--blue); }
+    h2 { margin:0 0 12px; font-size:clamp(1.7rem,3.5vw,2.8rem); letter-spacing:-.045em; line-height:1; }
+    .lede { max-width:660px; margin:0; color:var(--muted); font-size:1.08rem; line-height:1.65; }
+    .notice { margin:0; padding:19px 20px; color:var(--blue); background:#dff6ff; border-left:5px solid var(--sky); font-size:.96rem; line-height:1.5; }
+    .timeline { position:relative; margin:0; padding:0; list-style:none; }
+    .timeline::before { content:""; position:absolute; top:31px; bottom:31px; left:50%; width:2px; background:var(--line); transform:translateX(-50%); }
+    .milestone { display:grid; grid-template-columns:1fr 1fr; position:relative; min-height:194px; }
+    .milestone:nth-child(odd) .card { grid-column:1; margin-right:54px; }
+    .milestone:nth-child(even) .card { grid-column:2; margin-left:54px; }
+    .marker { position:absolute; left:50%; top:27px; z-index:1; width:18px; height:18px; background:var(--orange); border:4px solid var(--paper); border-radius:50%; box-shadow:0 0 0 2px var(--orange); transform:translateX(-50%); }
+    .milestone:last-child .marker { background:var(--sky); box-shadow:0 0 0 2px var(--sky); }
+    .card { align-self:start; padding:26px; background:white; border:1px solid #dce4eb; box-shadow:0 12px 32px rgba(20,45,70,.08); transition:transform .2s ease,box-shadow .2s ease; }
+    .card:hover, .card:focus-within { transform:translateY(-4px); box-shadow:0 18px 40px rgba(20,45,70,.14); }
+    .stage { margin:0 0 8px; color:var(--blue); font-size:.76rem; font-weight:800; letter-spacing:.13em; text-transform:uppercase; }
+    h3 { margin:0; font-size:1.35rem; letter-spacing:-.025em; }
+    time { display:block; margin:12px 0 0; font-size:1.05rem; font-weight:700; }
+    .deadline { margin:9px 0 0; color:var(--muted); font-size:.91rem; }
+    details { margin-top:17px; border-top:1px solid #e4eaf0; padding-top:13px; }
+    summary { cursor:pointer; color:var(--blue); font-weight:750; }
+    details p { margin:12px 0 0; color:var(--muted); font-size:.92rem; line-height:1.55; }
+    .card-link { display:inline-flex; align-items:center; gap:8px; margin-top:19px; color:var(--blue); font-size:.92rem; font-weight:750; text-decoration-thickness:2px; text-underline-offset:3px; }
+    .card-link::after { content:"↗"; font-size:1.1em; }
+    .next { margin:7px 0 0; padding:29px; background:var(--ink); color:white; }
+    .next h2 { font-size:1.5rem; }
+    .next p { max-width:640px; margin:10px 0 0; color:#d8e1e8; line-height:1.6; }
+    footer { padding:0 0 36px; color:var(--muted); font-size:.82rem; }
+    footer p { margin:0; border-top:1px solid #dce4eb; padding-top:20px; }
+    @media (max-width:700px) {
+      .shell { width:min(100% - 32px, 560px); }
+      .masthead .shell { min-height:270px; padding:30px 0 36px; }
+      .intro { grid-template-columns:1fr; gap:23px; margin-bottom:35px; }
+      .timeline::before { left:9px; top:26px; bottom:26px; }
+      .milestone { display:block; min-height:0; padding-left:34px; margin-bottom:22px; }
+      .milestone:nth-child(n) .card { margin:0; }
+      .marker { left:9px; top:24px; }
+      .card { padding:22px; }
+      .next { margin-left:34px; padding:24px; }
     }
-
-    svg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #fff;
-      display: block;
-    }
-
-    .today-line {
-      stroke: #888;
-      stroke-width: 3;
-      stroke-dasharray: 4;
-    }
-
-    #github-link {
-      position: fixed;
-      left: 8px;
-      bottom: 8px;
-      z-index: 9999;
-      display: block;
-      width: 24px;
-      height: 24px;
-    }
-
-    #github-link svg {
-      position: static;
-      width: 100%;
-      height: 100%;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-    }
-
-    .footer svg:hover {
-      opacity: 1;
-    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; } }
   </style>
 </head>
-
 <body>
-  <svg></svg>
-
-  <script>const data = [
-      {
-        track: 'Full Papers',
-        label: 'FP',
-        color: '#E32017', // Bright red
-        dates: [
-          { date: '26/11/2025', name: 'Abstract deadline', type: 'start', url: 'https://eurovis.org.uk/full-papers/', label: 'Abstract' },
-          { date: '03/12/2025', name: 'Full paper deadline', type: 'submission', url: 'https://eurovis.org.uk/full-papers/', label: 'Submission' },
-          { date: '11/02/2026', name: 'First Round Notification', type: 'notification', url: 'https://eurovis.org.uk/full-papers/', label: 'Notification' },
-          { date: '04/03/2026', name: 'Revised Submission', type: 'submission', url: 'https://eurovis.org.uk/full-papers/', label: 'Revision' },
-          { date: '18/03/2026', name: 'Final Notification', type: 'notification', url: 'https://eurovis.org.uk/full-papers/', label: 'Notification' },
-          { date: '15/04/2026', name: 'Camera Ready Version', type: 'end', url: 'https://eurovis.org.uk/full-papers/', label: 'Camera Ready' }
-        ]
-      },
-      {
-        track: 'Short Papers',
-        label: 'SP',
-        color: '#B36305', // Orange-ish
-        dates: [
-          { date: '18/02/2026', name: 'Submission deadline', type: 'start', url: 'https://eurovis.org.uk/short-papers/', label: 'Submission' },
-          { date: '01/04/2026', name: 'Acceptance notification', type: 'notification', url: 'https://eurovis.org.uk/short-papers/', label: 'Notification' },
-          { date: '22/04/2026', name: 'Camera Ready Version', type: 'end', url: 'https://eurovis.org.uk/short-papers/', label: 'Camera Ready' }
-        ]
-      },
-      {
-        track: 'State of the Art Reports',
-        label: 'STAR',
-        color: '#FFD300', // Bright yellow
-        dates: [
-          { date: '13/10/2025', name: 'STAR Sketch Submission', type: 'start', url: 'https://eurovis.org.uk/state-of-the-art-reports-stars/', label: 'Sketch' },
-          { date: '05/11/2025', name: 'Invitation for Full STAR', type: 'notification', url: 'https://eurovis.org.uk/state-of-the-art-reports-stars/', label: 'Invitation' },
-          { date: '12/01/2026', name: 'Full STAR Submission', type: 'submission', url: 'https://eurovis.org.uk/state-of-the-art-reports-stars/', label: 'Submission' },
-          { date: '12/03/2026', name: '(Updated) Full STAR Notification', type: 'notification', url: 'https://eurovis.org.uk/state-of-the-art-reports-stars/', label: 'Notification*' },
-          { date: '03/04/2026', name: '(Updated) Second Round Submission', type: 'submission', url: 'https://eurovis.org.uk/state-of-the-art-reports-stars/', label: 'Revision*' },
-          { date: '08/04/2026', name: 'Second Review Notification', type: 'notification', url: 'https://eurovis.org.uk/state-of-the-art-reports-stars/', label: 'Notification' },
-          { date: '22/04/2026', name: 'Camera-Ready Deadline', type: 'end', url: 'https://eurovis.org.uk/state-of-the-art-reports-stars/', label: 'Camera Ready' }
-        ]
-      },
-      {
-        track: 'Panels & Tutorials',
-        label: 'P&T',
-        color: '#003688', // Dark blue
-        dates: [
-          { date: '25/02/2026', name: 'Submission deadline', type: 'start', url: 'https://eurovis.org.uk/panels-and-tutorials/', label: 'Submission' },
-          { date: '04/03/2026', name: 'Conditional Notification', type: 'notification', url: 'https://eurovis.org.uk/panels-and-tutorials/', label: 'Notification' },
-          { date: '15/04/2026', name: 'Camera-Ready Abstract', type: 'end', url: 'https://eurovis.org.uk/panels-and-tutorials/', label: 'Camera Ready' }
-        ]
-      },
-      {
-        track: 'Workshops',
-        label: 'WS',
-        color: '#00782A', // Vivid green
-        dates: [
-          { date: '29/09/2025', name: 'Proposal Submission', type: 'start', url: 'https://eurovis.org.uk/workshops/', label: 'Submission' },
-          { date: '15/10/2025', name: 'Notification', type: 'end', url: 'https://eurovis.org.uk/workshops/', label: 'Notification' }
-        ]
-      },
-      {
-        track: 'Education Papers',
-        label: 'ED',
-        color: '#9B0056', // Dark magenta
-        dates: [
-          { date: '12/01/2026', name: 'Submission', type: 'start', url: 'https://eurovis.org.uk/education-papers/', label: 'Submission' },
-          { date: '05/03/2026', name: 'Notification', type: 'notification', url: 'https://eurovis.org.uk/education-papers/', label: 'Notification' },
-          { date: '06/04/2026', name: 'Camera-Ready', type: 'end', url: 'https://eurovis.org.uk/education-papers/', label: 'Camera Ready' }
-        ]
-      },
-      {
-        track: 'Posters & Demos',
-        label: 'P&D',
-        color: '#0098D4', // Light blue
-        dates: [
-          { date: '05/04/2026', name: 'Submission', type: 'start', url: 'https://eurovis.org.uk/posters/', label: 'Submission' },
-          { date: '27/04/2026', name: 'Notification', type: 'notification', url: 'https://eurovis.org.uk/posters/', label: 'Notification' },
-          { date: '04/05/2026', name: 'Camera-Ready', type: 'end', url: 'https://eurovis.org.uk/posters/', label: 'Camera Ready' }
-        ]
-      }
-    ];
-
-    const typeIcons = {
-      start: '📄',     // For anything being submitted
-      abstract: '📝',         // For abstract deadlines
-      submission: '📬', // For submission deadlines
-      review: '🔍',         // For review phases (internal or external)
-      notification: '📢',   // For acceptance or review notifications
-      cameraReady: '🖨️',    // Specifically for final camera-ready submissions
-      end: '✅',         // For final deadlines or camera-ready versions
-      invitation: '✉️',     // For invitations to submit (e.g., for STARs)
-    };
-
-    const parseDate = str => {
-      // Match DD/MM/YYYY or MM/YYYY
-      const fullMatch = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str);
-      if (fullMatch) return new Date(+fullMatch[3], +fullMatch[2] - 1, +fullMatch[1]);
-      const monthYearMatch = /^(\d{2})\/(\d{4})$/.exec(str);
-      if (monthYearMatch) return new Date(+monthYearMatch[2], +monthYearMatch[1] - 1, 1);
-      return null;
-    }
-
-    // --- Preprocessing ---
-    data.forEach(track => track.dates.forEach(d => d.parsed = parseDate(d.date)));
-    data.sort((a, b) => {
-      const aStart = a.dates.find(d => d.type === 'start')?.parsed;
-      const bStart = b.dates.find(d => d.type === 'start')?.parsed;
-      return (aStart || new Date(9999, 0, 1)) - (bStart || new Date(9999, 0, 1));
-    });
-    const allDates = [...new Set(data.flatMap(t => t.dates.map(d => d.parsed)))].sort((a, b) => a - b);
-    const trackNames = data.map(d => d.track);
-    const svg = d3.select('svg');
-
-    // --- Header Rendering ---
-    function renderHeader() {
-      d3.select('.header-group').remove();
-      const headerGroup = svg.append('g').attr('class', 'header-group');
-      // Even more compact header: smaller logo and reduced spacing
-      const minHeight = svg.node().clientHeight;
-      const logoHeight = Math.max(24, Math.min(40, minHeight * 0.08));
-      const titleFontSize = Math.max(14, Math.min(20, minHeight * 0.035));
-      const subtitleFontSize = Math.max(10, Math.min(13, minHeight * 0.022));
-
-      headerGroup.append('image')
-        .attr('x', 6).attr('y', 4).attr('height', logoHeight)
-        .attr('href', 'logo.png').attr('preserveAspectRatio', 'xMidYMid meet');
-      headerGroup.append('text')
-        .attr('x', logoHeight + 12).attr('y', logoHeight * 0.6)
-        .attr('text-anchor', 'start')
-        .attr('font-size', titleFontSize).attr('font-weight', 'bold')
-        .attr('font-family', 'sans-serif').attr('fill', '#222')
-        .text('EuroVis 2026 Timeline');
-      headerGroup.append('text')
-        .attr('x', logoHeight + 12).attr('y', logoHeight * 0.95)
-        .attr('text-anchor', 'start')
-        .attr('font-size', subtitleFontSize).attr('font-family', 'sans-serif')
-        .attr('fill', '#666').text('Key Deadlines for All Tracks (All deadlines are AoE)');
-
-      // Legend
-      // Smaller legend: less spacing, padding, and font size
-      const isHeightConstrained = svg.node().clientHeight < 500;
-      const legendSpacing = isHeightConstrained ? 14 : 18;
-      const legendCols = 2;
-      const legendRows = Math.ceil(data.length / legendCols);
-      let maxTextWidths = [0, 0];
-      data.forEach((track, i) => {
-        const col = i % legendCols;
-        const tempText = headerGroup.append('text')
-          .attr('x', 0).attr('y', -100).attr('font-size', isHeightConstrained ? 10 : 13)
-          .attr('font-family', 'sans-serif').text(track.track);
-        const textWidth = tempText.node().getBBox().width;
-        if (textWidth > maxTextWidths[col]) maxTextWidths[col] = textWidth;
-        tempText.remove();
-      });
-      const isVertical = window.innerWidth < window.innerHeight;
-      const colWidth = Math.max(...maxTextWidths) + (isVertical ? 2 : 8);
-      const legendRectWidth = legendCols * colWidth + (isVertical ? 4 : 8);
-      const legendHeight = legendRows * (isVertical ? 12 : 18);
-      const legendPadding = 5;
-      const legendX = svg.node().clientWidth - legendRectWidth - legendPadding;
-      const legendY = 6; // Align with top of logo
-      const legendGroup = headerGroup.append('g')
-        .attr('class', 'subway-legend')
-        .attr('transform', `translate(${legendX},${legendY + 2})`);
-      legendGroup.append('rect')
-        .attr('x', -legendPadding).attr('y', -legendPadding)
-        .attr('width', legendRectWidth).attr('height', legendHeight)
-        .attr('rx', 6).attr('fill', '#fff').attr('stroke', '#000')
-        .attr('stroke-width', 2).attr('opacity', 1);
-      data.forEach((track, i) => {
-        const col = i % legendCols, row = Math.floor(i / legendCols);
-        const xBase = col * colWidth, yBase = row * (isVertical ? 10 : legendSpacing) + (isVertical ? 2 : 4);
-        legendGroup.append('line')
-          .attr('x1', xBase).attr('y1', yBase)
-          .attr('x2', xBase + (isHeightConstrained ? 8 : 12)).attr('y2', yBase)
-          .attr('stroke', track.color).attr('stroke-width', isHeightConstrained ? 4 : 6)
-          .attr('stroke-linecap', 'round');
-        legendGroup.append('text')
-          .attr('x', xBase + (isHeightConstrained ? 12 : 17)).attr('y', yBase + (isHeightConstrained ? 3 : 4))
-          .attr('font-size', isHeightConstrained ? 9 : 11).attr('fill', '#222')
-          .attr('font-family', 'sans-serif').text(track.track);
-      });
-    }
-
-    // --- Tooltip Helpers ---
-    function showSvgTooltip(g, x, y, html, isHorizontal, isLabel = false) {
-      removeSvgTooltip(g);
-      const text = html.replace(/<br>/g, ' ').replace(/<[^>]+>/g, '');
-      const fontSize = 13, padding = 10, lineHeight = 18;
-      const lines = html.split('<br>');
-      const width = Math.max(80, text.length * fontSize * 0.5);
-      const height = lines.length * lineHeight + padding * 2;
-      let tooltipX = x, tooltipY = y;
-      if (isHorizontal) {
-        tooltipY -= height + 18;
-        if (tooltipY < 0) tooltipY = y + 24;
-      } else {
-        tooltipX += 24; tooltipY -= height / 2;
-        if (tooltipX + width > g.node().ownerSVGElement.clientWidth) tooltipX = x - width - 24;
-        if (isLabel) tooltipY += 20;
-      }
-      const tooltipGroup = g.append('g').attr('class', 'svg-tooltip').attr('pointer-events', 'none');
-      tooltipGroup.append('rect')
-        .attr('x', tooltipX - width / 2).attr('y', tooltipY)
-        .attr('width', width).attr('height', height)
-        .attr('rx', 8).attr('fill', '#333').attr('stroke', '#222').attr('opacity', 0.95);
-      lines.forEach((line, i) => {
-        tooltipGroup.append('text')
-          .attr('x', tooltipX)
-          .attr('y', tooltipY + padding + (i + 1) * lineHeight - 6)
-          .attr('text-anchor', 'middle')
-          .attr('font-size', fontSize)
-          .attr('fill', '#fff')
-          .attr('font-family', 'sans-serif')
-          .html(line.replace(/<[^>]+>/g, ''));
-      });
-    }
-    function removeSvgTooltip(g) {
-      g.selectAll('.svg-tooltip').remove();
-    }
-
-    // --- Main Render ---
-    function render() {
-      svg.selectAll('*').remove();
-      
-      // Get viewport dimensions and calculate scale factors
-      const viewportHeight = svg.node().clientHeight;
-      const viewportWidth = svg.node().clientWidth;
-      const isHorizontal = viewportWidth >= viewportHeight;
-      const isHeightConstrained = viewportHeight < 500;
-      
-      // Calculate scale based on viewport height
-      const scale = isHeightConstrained ? Math.max(0.6, viewportHeight / 500) : 1;
-      
-      // Base header height that will be scaled - reduced base height
-      const baseHeaderHeight = isHorizontal ? 50 : 40;
-      const headerHeight = Math.min(baseHeaderHeight * scale, viewportHeight * 0.12);
-      
-      // Scale margins proportionally - minimized top margin
-      const margin = {
-        top: Math.min(16 * scale, viewportHeight * 0.03),
-        right: 60 * scale,
-        bottom: Math.min(30 * scale, viewportHeight * 0.06),
-        left: 35 * scale
-      };
-
-      // Render header
-      renderHeader();
-      const height = svg.node().clientHeight - margin.top - margin.bottom - headerHeight;
-      const laneHeight = 15 * scale;
-      const g = svg.append('g').attr('transform', `translate(${isHorizontal ? margin.left / 2 : margin.left},${margin.top + headerHeight})`);
-      const width = svg.node().clientWidth - (isHorizontal ? margin.right : margin.left + 1.5 * margin.right);
-
-      let xScale, yScale;
-      const trackLinesGroup = g.append('g')
-        .attr('class', 'track-lines-group')
-        .attr('transform', isHorizontal ? 'translate(0, 60)' : 'translate(0, 0)');
-
-      if (isHorizontal) {
-        xScale = d3.scaleTime().domain(d3.extent(allDates)).range([margin.left, width]);
-        yScale = d3.scalePoint().domain(trackNames).range([20, height - height * 0.15]).padding(0.1);
-        trackLinesGroup.selectAll('.track-line')
-          .data(data).enter().append('line')
-          .attr('class', 'track-line')
-          .attr('x1', d => xScale(d.dates.find(date => date.type === 'start')?.parsed || d.dates[0].parsed))
-          .attr('x2', d => xScale(d.dates.find(date => date.type === 'end')?.parsed || d.dates[d.dates.length - 1].parsed))
-          .attr('y1', d => yScale(d.track)).attr('y2', d => yScale(d.track))
-          .attr('stroke', d => d.color).attr('stroke-width', laneHeight).attr('stroke-linecap', 'round');
-      } else {
-        xScale = d3.scalePoint().domain(trackNames).range([16, width - 16]).padding(0);
-        yScale = d3.scaleTime().domain(d3.extent(allDates)).range([height * 0.05, height * 0.95]);
-        trackLinesGroup.selectAll('.track-line')
-          .data(data).enter().append('line')
-          .attr('class', 'track-line')
-          .attr('y1', d => yScale(d.dates.find(date => date.type === 'start')?.parsed || d.dates[0].parsed))
-          .attr('y2', d => yScale(d.dates.find(date => date.type === 'end')?.parsed || d.dates[d.dates.length - 1].parsed))
-          .attr('x1', d => xScale(d.track)).attr('x2', d => xScale(d.track))
-          .attr('stroke', d => d.color).attr('stroke-width', laneHeight).attr('stroke-linecap', 'round');
-      }
-
-      // Milestones
-      data.forEach(track => {
-        const pos = isHorizontal
-          ? { fixed: yScale(track.track), axis: d => xScale(d.parsed) }
-          : { fixed: xScale(track.track), axis: d => yScale(d.parsed) };
-        trackLinesGroup.selectAll()
-          .data(track.dates).enter().append('g')
-          .attr('transform', d => {
-            const x = isHorizontal ? pos.axis(d) : pos.fixed;
-            const y = isHorizontal ? pos.fixed : pos.axis(d);
-            return `translate(${x},${y})`;
-          })
-          .each(function (d) {
-            if (d.type === 'start' || d.type === 'end') {
-              d3.select(this).append('rect')
-                .attr('x', isHorizontal ? -laneHeight : -laneHeight)
-                .attr('y', isHorizontal ? -laneHeight * 1.5 : -laneHeight * 0.625)
-                .attr('width', isHorizontal ? laneHeight * 1.5 : laneHeight * 2)
-                .attr('height', isHorizontal ? laneHeight * 3 : laneHeight * 1.25)
-                .attr('fill', '#fff').attr('stroke', '#000').attr('stroke-width', 5)
-                .attr('rx', 8).attr('ry', 8);
-            } else {
-              d3.select(this).append('rect')
-                .attr('x', 0).attr('y', isHorizontal ? -laneHeight * 2 : 0)
-                .attr('width', isHorizontal ? laneHeight : laneHeight * 1.5)
-                .attr('height', isHorizontal ? laneHeight * 2 : laneHeight)
-                .attr('fill', track.color).attr('stroke', 'none')
-                .attr('rx', 4).attr('ry', 4);
-            }
-            const labelLines = (d.label || '').split(' ');
-            labelLines.forEach((line, i) => {
-              const labelSpacing = isHeightConstrained ? 12 : 16;
-              const labelYOffset = isHorizontal ? -laneHeight * 2.75 + i * labelSpacing : 5 + i * labelSpacing;
-              const labelXOffset = isHorizontal ? 0 : laneHeight * 2.2;
-              d3.select(this).append('text')
-                .attr('class', 'milestone-label')
-                .attr('text-anchor', 'start')
-                .attr('font-size', isHeightConstrained ? 11 : 15).attr('font-weight', 'bold')
-                .attr('font-family', 'sans-serif').attr('fill', '#222')
-                .attr('x', labelXOffset).attr('y', labelYOffset)
-                .attr('transform', `rotate(-30 ${labelXOffset} ${labelYOffset})`)
-                .text(line);
-            });
-          })
-            .on('mouseover', function (event, d) {
-            const coords = d3.select(this).attr('transform').match(/translate\(([^,]+),([^)]+)\)/);
-            const x = +coords[1], y = +coords[2];
-            showSvgTooltip(g, x, y, `<strong>${track.track}</strong><br>${d.name}<br>${d.date}`, isHorizontal);
-            })
-            .on('mousemove', function (event, d) {
-            const coords = d3.select(this).attr('transform').match(/translate\(([^,]+),([^)]+)\)/);
-            const x = +coords[1], y = +coords[2];
-            showSvgTooltip(g, x, y, `<strong>${track.track}</strong><br>${d.name}<br>${d.date}`, isHorizontal);
-            })
-          .on('mouseout', () => removeSvgTooltip(g))
-          .on('click', (_, d) => { if (d.url) window.open(d.url, '_blank'); });
-      });
-
-      // Month ticks/labels
-      const months = d3.timeMonths(
-        d3.timeMonth.ceil(allDates[0]),
-        d3.timeMonth.offset(d3.timeMonth.ceil(allDates[allDates.length - 1]), 1)
-      );
-      if (isHorizontal) {
-        g.selectAll('.month-tick').data(months).enter().append('line')
-          .attr('class', 'month-tick')
-          .attr('x1', d => xScale(d)).attr('x2', d => xScale(d))
-          .attr('y1', 45).attr('y2', height) // Start grid lines below header
-          .attr('stroke', '#ddd').attr('stroke-width', 1);
-        g.selectAll('.month-label').data(months).enter().append('text')
-          .attr('class', 'month-label')
-          .attr('x', d => xScale(d)).attr('y', 35) // Move month labels down
-          .attr('text-anchor', 'middle').attr('font-size', 11 * scale)
-          .attr('fill', '#bbb').text(d => d3.timeFormat('%b')(d));
-      } else {
-        g.selectAll('.month-tick').data(months).enter().append('line')
-          .attr('class', 'month-tick')
-          .attr('y1', d => yScale(d)).attr('y2', d => yScale(d))
-          .attr('x1', 0).attr('x2', width)
-          .attr('stroke', '#ddd').attr('stroke-width', 1);
-        g.selectAll('.month-label').data(months).enter().append('text')
-          .attr('class', 'month-label')
-          .attr('x', -10).attr('y', d => yScale(d) + 4)
-          .attr('text-anchor', 'end').attr('font-size', 11)
-          .attr('fill', '#bbb').text(d => d3.timeFormat('%b')(d));
-      }
-
-
-      // Today line and flag
-      // Set "today" to a future date (e.g., 1 March 2025)
-      const today = new Date(); // Months are 0-based: 2 = March
-      if (today >= allDates[0] && today <= allDates[allDates.length - 1]) {
-        const linePos = isHorizontal ? xScale(today) : yScale(today);
-        // Draw the today line
-        g.append('line')
-          .attr('class', 'today-line')
-          .attr(isHorizontal ? 'x1' : 'y1', linePos)
-          .attr(isHorizontal ? 'x2' : 'y2', linePos)
-          .attr(isHorizontal ? 'y1' : 'x1', isHorizontal ? 45 : 0)
-          .attr(isHorizontal ? 'y2' : 'x2', isHorizontal ? height : width);
-
-        // Responsive flag size
-        // Moderate, readable flag size
-        const baseFlagWidth = Math.max(48, Math.min(80, svg.node().clientWidth * 0.045));
-        const baseFlagHeight = Math.max(20, Math.min(32, svg.node().clientHeight * 0.025));
-
-        const flagGroup = g.append('g').attr('class', 'today-flag-group');
-        const flagX = isHorizontal ? linePos : 0;
-        const flagY = isHorizontal ? 45 : linePos; // Position flag lower
-        if (isHorizontal) {
-          // Right-pointing flag
-          flagGroup.append('polygon')
-            .attr('points', `${flagX},${flagY} ${flagX + baseFlagWidth},${flagY + baseFlagHeight / 2} ${flagX},${flagY + baseFlagHeight}`)
-            .attr('fill', '#e74c3c').attr('stroke', '#b03a2e').attr('stroke-width', 2);
-          // Centered label
-          flagGroup.append('text')
-            .attr('x', flagX + 20)
-            .attr('y', flagY + 15)
-            .attr('font-size', 13)
-            .attr('font-family', 'sans-serif')
-            .attr('fill', '#fff')
-            .attr('font-weight', 'bold')
-            .attr('text-anchor', 'middle')
-            .attr('alignment-baseline', 'middle')
-            .style('paint-order', 'stroke')
-            .style('stroke', '#b03a2e')
-            .style('stroke-width', '1px')
-            .text('Today');
-        } else {
-          // Down-pointing flag
-          // flagGroup.append('polygon')
-          //   .attr('points', `${flagX},${flagY} ${flagX+baseFlagHeight/2},${flagY+baseFlagWidth} ${flagX+baseFlagHeight},${flagY}`)
-          //   .attr('fill', '#e74c3c').attr('stroke', '#b03a2e').attr('stroke-width', 2);
-          // flagGroup.append('text')
-          //   .attr('x', flagX + baseFlagHeight/2)
-          //   .attr('y', flagY + baseFlagWidth * 0.55)
-          //   .attr('font-size', fontSize)
-          //   .attr('font-family', 'sans-serif')
-          //   .attr('fill', '#fff')
-          //   .attr('font-weight', 'bold')
-          //   .attr('text-anchor', 'middle')
-          //   .attr('alignment-baseline', 'middle')
-          //   .style('paint-order', 'stroke')
-          //   .style('stroke', '#b03a2e')
-          //   .style('stroke-width', '1.5px')
-          //   .text('Today');
-        }
-      }
-      g.selectAll('.today-line').lower();
-      g.selectAll('.track-line').raise();
-      g.selectAll('.track-label').raise();
-      g.selectAll('g').raise();
-    }
-
-    render();
-    window.addEventListener('resize', render);
-  </script>
-
-  <a id="github-link" href="https://github.com/velitchko/eurovis-timeline" target="_blank" title="View on GitHub">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="black">
-      <path
-        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.6-.18-3.29-.8-3.29-3.56 0-.79.28-1.43.74-1.93-.07-.18-.32-.91.07-1.89 0 0 .6-.19 1.97.73a6.8 6.8 0 0 1 1.8-.24c.61 0 1.22.08 1.8.24 1.37-.92 1.97-.73 1.97-.73.39.98.14 1.71.07 1.89.46.5.74 1.14.74 1.93 0 2.77-1.69 3.38-3.3 3.56.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-    </svg>
-  </a>
+  <header class="masthead">
+    <div class="shell">
+      <p class="eyebrow">The Eurographics Conference on Visualization</p>
+      <div>
+        <h1>EuroVis<br>2027</h1>
+        <p class="location"><span>Stuttgart, Germany</span> · Workshops call</p>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="intro" aria-labelledby="timeline-heading">
+      <div>
+        <p class="eyebrow">Call for Workshops</p>
+        <h2 id="timeline-heading">Two dates to put on your calendar.</h2>
+        <p class="lede">The currently published EuroVis 2027 Workshops call has two milestones. Explore each card for a concise reminder, then visit the official call for the full proposal guidance.</p>
+      </div>
+      <p class="notice"><strong>Deadline convention</strong><br>All deadlines are at 23:59 Anywhere on Earth (AoE).</p>
+    </section>
+    <ol class="timeline" aria-label="EuroVis 2027 Workshops call timeline">
+      <li class="milestone">
+        <span class="marker" aria-hidden="true"></span>
+        <article class="card">
+          <p class="stage">First milestone</p>
+          <h3>Proposal Submission</h3>
+          <time datetime="2026-10-12">Monday, October 12, 2026</time>
+          <p class="deadline">Due by 23:59 AoE</p>
+          <details>
+            <summary>What to prepare</summary>
+            <p>Workshop proposals are the first step in the published call. Consult the official page for requirements, evaluation criteria, and the proposal template.</p>
+          </details>
+          <a class="card-link" href="https://eurovis27.github.io/web/submissions/workshops/" target="_blank" rel="noopener noreferrer">Read the official call</a>
+        </article>
+      </li>
+      <li class="milestone">
+        <span class="marker" aria-hidden="true"></span>
+        <article class="card">
+          <p class="stage">Decision</p>
+          <h3>Notification</h3>
+          <time datetime="2026-10-26">Monday, October 26, 2026</time>
+          <p class="deadline">By 23:59 AoE</p>
+          <details>
+            <summary>Why this milestone matters</summary>
+            <p>This is the published notification date for workshop proposals. Further workshop dates have not been added here until they are officially announced.</p>
+          </details>
+          <a class="card-link" href="https://eurovis27.github.io/web/submissions/workshops/" target="_blank" rel="noopener noreferrer">View call updates</a>
+        </article>
+      </li>
+    </ol>
+    <section class="next" aria-labelledby="next-heading">
+      <h2 id="next-heading">More dates will follow.</h2>
+      <p>This timeline intentionally includes only deadlines published by EuroVis 2027. It will grow as additional calls and milestones are announced.</p>
+    </section>
+  </main>
+  <footer class="shell"><p>Timeline information is linked to the official <a href="https://eurovis27.github.io/web/" target="_blank" rel="noopener noreferrer">EuroVis 2027 website</a>. This independent timeline uses an original text treatment; no official logo or site artwork is reproduced.</p></footer>
 </body>
-
 </html>
