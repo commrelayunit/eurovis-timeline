@@ -1369,7 +1369,6 @@
         const plotBounds = plot.getBoundingClientRect();
         const currentDate = new Intl.DateTimeFormat("en", {
           dateStyle: "medium",
-          timeZone: "Europe/Vienna",
         }).format(now);
         const rangeState = rawPosition < 0 ? "before" : rawPosition > 100 ? "after" : "within";
 
