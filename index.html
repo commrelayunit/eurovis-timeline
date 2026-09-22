@@ -232,9 +232,9 @@
         background: repeating-linear-gradient(
           90deg,
           transparent 0,
-          transparent calc(8.333% - 1px),
-          #edf1f5 calc(8.333% - 1px),
-          #edf1f5 8.333%
+          transparent calc(12.5% - 1px),
+          #edf1f5 calc(12.5% - 1px),
+          #edf1f5 12.5%
         );
         content: "";
         pointer-events: none;
@@ -294,6 +294,7 @@
       .lane-label {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 9px;
         padding: 13px 16px 13px 18px;
         border-right: 1px solid #e4eaf0;
@@ -311,11 +312,7 @@
         content: "";
       }
       .lane-label small {
-        display: block;
-        margin-top: 3px;
-        color: var(--muted);
-        font-size: 0.69rem;
-        font-weight: 650;
+        margin: 0 0 0 1px;
       }
       .plot {
         position: relative;
@@ -324,9 +321,9 @@
         background: repeating-linear-gradient(
           90deg,
           transparent 0,
-          transparent calc(8.333% - 1px),
-          #f0f3f6 calc(8.333% - 1px),
-          #f0f3f6 8.333%
+          transparent calc(12.5% - 1px),
+          #f0f3f6 calc(12.5% - 1px),
+          #f0f3f6 12.5%
         );
       }
       .plot::before {
@@ -394,6 +391,10 @@
       .event.is-low::after {
         top: calc(100% + 8px);
         bottom: auto;
+      }
+      .event.is-past {
+        background: #aeb8c1;
+        box-shadow: 0 1px 3px rgba(26, 45, 63, 0.16);
       }
       .details {
         display: grid;
@@ -567,7 +568,8 @@
         .plot::before {
           top: 10px;
           bottom: 10px;
-          left: 6px;
+          /* A 12px dot has its centre at 6px; the 2px spine is centred there. */
+          left: 5px;
           right: auto;
           width: 2px;
           height: auto;
@@ -631,6 +633,16 @@
           box-shadow:
             0 0 0 4px color-mix(in srgb, var(--track) 24%, white),
             0 1px 4px rgba(26, 45, 63, 0.35);
+        }
+        .event.is-past::before {
+          background: #aeb8c1;
+          box-shadow: 0 1px 3px rgba(26, 45, 63, 0.16);
+        }
+        .event.is-past {
+          background: transparent;
+        }
+        .event.is-past::after {
+          color: #76838d;
         }
         .details {
           grid-template-columns: auto 1fr;
@@ -721,15 +733,16 @@
         </div>
         <div
           class="timeline"
-          data-start="2025-10-13"
-          data-end="2026-10-26"
+          data-start="2026-10-01"
+          data-end="2027-05-31"
           aria-describedby="today-description"
         >
           <div class="axis">
             <div class="axis-title">Track</div>
             <div class="axis-months" aria-hidden="true">
-              <span>Oct ’25</span><span>Dec</span><span>Feb ’26</span
-              ><span>Apr</span><span>Jun</span><span>Aug</span><span>Oct</span>
+              <span>Oct ’26</span><span>Nov</span><span>Dec</span
+              ><span>Jan ’27</span><span>Feb</span><span>Mar</span
+              ><span>Apr</span><span>May</span>
             </div>
           </div>
           <div class="lanes">
@@ -1319,9 +1332,10 @@
       </section>
       <p class="status">
         <strong>About the dates.</strong> Workshops are published EuroVis 2027
-        dates. Every other track retains its EuroVis 2026 milestones only as a
-        planning reference; confirm pending calls on the official EuroVis 2027
-        website.
+        dates. Other lanes are a <strong>2027 planning projection</strong> of
+        EuroVis 2026 reference milestones: the visual timeline shifts them one
+        calendar year forward, while the cards retain their source dates.
+        Confirm pending calls on the official EuroVis 2027 website.
       </p>
     </main>
     <footer class="shell">
@@ -1346,6 +1360,66 @@
       const lanesContainer = document.querySelector(".lanes");
       const todayMarker = document.querySelector(".today-marker");
       const todayDescription = document.querySelector("#today-description");
+      const monthNumbers = {
+        Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+        Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
+      };
+
+      const formatDate = (date) =>
+        new Intl.DateTimeFormat("en", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }).format(date);
+      const isoDate = (date) =>
+        `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      const parseVisibleDate = (text) => {
+        const match = text.match(/(\d{1,2})\s+([A-Za-z]{3})\s+(\d{4})/);
+        return match
+          ? new Date(Number(match[3]), monthNumbers[match[2]], Number(match[1]))
+          : null;
+      };
+      const isPublished = (event) => event.dataset.status.startsWith("Published");
+      const projectMilestones = () => {
+        events.forEach((event) => {
+          const sourceDate = event.dataset.date;
+          const date = parseVisibleDate(sourceDate);
+          if (!date) return;
+          if (!isPublished(event)) date.setFullYear(date.getFullYear() + 1);
+          const projected = formatDate(date);
+          event.dataset.sourceDate = sourceDate;
+          event.dataset.plannedDate = isoDate(date);
+          event.dataset.date = isPublished(event)
+            ? projected
+            : `${projected} (projected; reference: ${sourceDate})`;
+          event.dataset.status = isPublished(event)
+            ? "Published · 2027"
+            : "Reference · 2026 — projected for 2027";
+          event.dataset.mobile = isPublished(event)
+            ? `${event.dataset.name} · ${projected} · Published · 2027`
+            : `${event.dataset.name} · ${projected} · Reference · 2026 projection`;
+          const start = new Date(`${timeline.dataset.start}T00:00:00`);
+          const end = new Date(`${timeline.dataset.end}T23:59:59`);
+          event.style.setProperty("--at", ((date - start) / (end - start)) * 100);
+        });
+
+        lanes.forEach((lane) => {
+          const first = lane.querySelector(".event")?.dataset.plannedDate;
+          if (first) lane.dataset.firstSubmission = first;
+        });
+        cards.forEach((card) => {
+          const first = document.querySelector(`.lane[data-track="${card.dataset.track}"] .event`)?.dataset.plannedDate;
+          if (first) card.dataset.firstSubmission = first;
+        });
+        document.querySelectorAll(".lane-label small").forEach((label) =>
+          label.classList.add(
+            "chip",
+            label.textContent.includes("Published") ? "published" : "reference",
+          ),
+        );
+      };
+
+      projectMilestones();
 
       const sortByFirstSubmission = (items, parent) => {
         [...items]
@@ -1359,10 +1433,11 @@
       sortByFirstSubmission(cards, document.querySelector(".reference-grid"));
 
       const positionTodayMarker = () => {
-        const start = new Date(`${timeline.dataset.start}T00:00:00Z`);
-        const end = new Date(`${timeline.dataset.end}T23:59:59Z`);
+        const start = new Date(`${timeline.dataset.start}T00:00:00`);
+        const end = new Date(`${timeline.dataset.end}T23:59:59`);
         const now = new Date();
-        const rawPosition = ((now - start) / (end - start)) * 100;
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const rawPosition = ((today - start) / (end - start)) * 100;
         const position = Math.min(100, Math.max(0, rawPosition));
         const plot = document.querySelector(".plot");
         const lanesBounds = lanesContainer.getBoundingClientRect();
@@ -1381,6 +1456,11 @@
           rangeState === "within"
             ? `Today is ${currentDate}, marked on the date scale.`
             : `Today is ${currentDate}, which falls ${rangeState} the displayed date range.`;
+
+        events.forEach((event) => {
+          const planned = new Date(`${event.dataset.plannedDate}T00:00:00`);
+          event.classList.toggle("is-past", planned < today);
+        });
       };
 
       positionTodayMarker();
