@@ -15,6 +15,8 @@ The page intentionally distinguishes two kinds of information:
 - Track filters and selectable milestone dots work with keyboard, pointer, and touch input; selection exposes full date, provenance, and the correct official link.
 - Status labels and a compact legend keep published 2027 Workshops dates visibly distinct from 2026 reference dates.
 - A compact, filter-synchronised track reference sits below the visualization for exact milestone lookup.
+- Both the visual lanes and reference cards are ordered by each track's first submission-stage date (for example, a Full Papers abstract deadline and a STAR sketch submission), rather than by call type.
+- A date-scale Today marker shows the current point in the displayed range and labels itself when today falls before or after it.
 - On small screens, each lane becomes a deliberately vertical chronological spine rather than a compressed desktop plot.
 - Original text-based visual identity; no official logo or artwork is reproduced.
 
