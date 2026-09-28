@@ -7,7 +7,7 @@ A responsive, accessible visual date timeline for EuroVis 2027 in Stuttgart, Ger
 The page intentionally distinguishes two kinds of information:
 
 - **Published EuroVis 2027 dates:** the Workshops call is official. Proposal Submission is **Monday, October 12, 2026**, and Notification is **Monday, October 26, 2026**. Both are at 23:59 Anywhere on Earth (AoE). Workshops milestones link to the [official Workshops call](https://eurovis27.github.io/web/submissions/workshops/).
-- **EuroVis 2026 reference dates:** Full Papers, Short Papers, STARs, Panels & Tutorials, Education Papers, and Posters & Demos retain the previous conference's dates solely as planning references while their 2027 calls are unpublished. They are not 2027 deadlines, and every pending-track milestone links to the [official EuroVis 2027 website](https://eurovis27.github.io/web/) for confirmation.
+- **EuroVis 2026 reference dates:** Full Papers, Short Papers, STARs, Panels & Tutorials, Education Papers, and Posters & Demos retain the previous conference's dates solely as planning references. They are not 2027 deadlines. Where a 2027 call is available, the corresponding milestone and reference card link directly to it; Education Papers link to the [official EuroVis 2027 website](https://eurovis27.github.io/web/) for confirmation.
 
 ## Features
 
