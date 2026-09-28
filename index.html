@@ -1168,10 +1168,10 @@
                 </li>
               </ul>
               <a
-                href="https://eurovis27.github.io/web/"
+                href="https://eurovis27.github.io/web/submissions/full-papers/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Check official EuroVis 2027 calls</a
+                >Read the official Full Papers call</a
               >
             </article>
             <article class="reference-card" data-track="short" data-first-submission="2026-02-18">
@@ -1197,10 +1197,10 @@
                 </li>
               </ul>
               <a
-                href="https://eurovis27.github.io/web/"
+                href="https://eurovis27.github.io/web/submissions/short-papers/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Check official EuroVis 2027 calls</a
+                >Read the official Short Papers call</a
               >
             </article>
             <article class="reference-card" data-track="star" data-first-submission="2025-10-13">
@@ -1242,10 +1242,10 @@
                 </li>
               </ul>
               <a
-                href="https://eurovis27.github.io/web/"
+                href="https://eurovis27.github.io/web/submissions/stars/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Check official EuroVis 2027 calls</a
+                >Read the official STARs call</a
               >
             </article>
             <article class="reference-card" data-track="panels" data-first-submission="2026-02-25">
@@ -1271,10 +1271,10 @@
                 </li>
               </ul>
               <a
-                href="https://eurovis27.github.io/web/"
+                href="https://eurovis27.github.io/web/submissions/panels-tutorials/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Check official EuroVis 2027 calls</a
+                >Read the official Panels &amp; Tutorials call</a
               >
             </article>
             <article class="reference-card" data-track="workshops" data-first-submission="2026-10-12">
@@ -1348,10 +1348,10 @@
                 </li>
               </ul>
               <a
-                href="https://eurovis27.github.io/web/"
+                href="https://eurovis27.github.io/web/submissions/posters-demos/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Check official EuroVis 2027 calls</a
+                >Read the official Posters &amp; Demos call</a
               >
             </article>
           </div>
@@ -1563,15 +1563,40 @@
           events.forEach((item) =>
             item.classList.toggle("selected", item === event),
           );
-          const linkText =
-            event.dataset.track === "Workshops"
-              ? "Read the official Workshops call"
-              : "Check official EuroVis 2027 calls";
+          const officialCalls = {
+            "Full Papers": {
+              url: "https://eurovis27.github.io/web/submissions/full-papers/",
+              label: "Read the official Full Papers call",
+            },
+            "Short Papers": {
+              url: "https://eurovis27.github.io/web/submissions/short-papers/",
+              label: "Read the official Short Papers call",
+            },
+            STARs: {
+              url: "https://eurovis27.github.io/web/submissions/stars/",
+              label: "Read the official STARs call",
+            },
+            "Panels & Tutorials": {
+              url: "https://eurovis27.github.io/web/submissions/panels-tutorials/",
+              label: "Read the official Panels & Tutorials call",
+            },
+            Workshops: {
+              url: "https://eurovis27.github.io/web/submissions/workshops/",
+              label: "Read the official Workshops call",
+            },
+            "Posters & Demos": {
+              url: "https://eurovis27.github.io/web/submissions/posters-demos/",
+              label: "Read the official Posters & Demos call",
+            },
+          };
+          const officialCall = officialCalls[event.dataset.track];
+          const linkText = officialCall?.label ?? "Check official EuroVis 2027 calls";
+          const linkUrl = officialCall?.url ?? event.dataset.url;
           details.style.setProperty(
             "--selected",
             getComputedStyle(event).getPropertyValue("--track"),
           );
-          details.innerHTML = `<span class="details-dot" aria-hidden="true"></span><p><strong>${event.dataset.track} · ${event.dataset.name}</strong><br><span class="detail-meta">${event.dataset.date} · ${event.dataset.status}</span></p><a class="call-link" href="${event.dataset.url}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
+          details.innerHTML = `<span class="details-dot" aria-hidden="true"></span><p><strong>${event.dataset.track} · ${event.dataset.name}</strong><br><span class="detail-meta">${event.dataset.date} · ${event.dataset.status}</span></p><a class="call-link" href="${linkUrl}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
         });
       });
     </script>
