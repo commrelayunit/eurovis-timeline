@@ -493,6 +493,20 @@
         color: var(--muted);
         font-size: 0.76rem;
       }
+      .track-note {
+        margin-top: 14px;
+        padding: 9px 10px;
+        border-left: 3px solid #a78200;
+        background: #fff8df;
+        color: #514000;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+      .reference-card .track-note a {
+        margin: 0;
+        font: inherit;
+        font-weight: 800;
+      }
       .reference-card ul {
         margin: 14px 0 0;
         padding: 0;
@@ -884,32 +898,10 @@
                 ></button>
               </div>
             </div>
-            <div class="lane" data-track="star" data-first-submission="2025-10-13" style="--track: #a78200">
+            <div class="lane" data-track="star" data-first-submission="2026-01-12" style="--track: #a78200">
               <div class="lane-label">STARs<small>Reference · 2026</small></div>
               <div class="plot">
                 <button
-                  class="event"
-                  style="--at: 0"
-                  data-short="Sketch"
-                  data-mobile="STAR sketch submission · 13 Oct 2025"
-                  data-track="STARs"
-                  data-name="STAR sketch submission"
-                  data-date="13 Oct 2025"
-                  data-status="EuroVis 2026 reference"
-                  data-url="https://eurovis27.github.io/web/"
-                ></button
-                ><button
-                  class="event is-low"
-                  style="--at: 6.1"
-                  data-short="Invite"
-                  data-mobile="Invitation for full STAR · 5 Nov 2025"
-                  data-track="STARs"
-                  data-name="Invitation for full STAR"
-                  data-date="5 Nov 2025"
-                  data-status="EuroVis 2026 reference"
-                  data-url="https://eurovis27.github.io/web/"
-                ></button
-                ><button
                   class="event"
                   style="--at: 24"
                   data-short="Full STAR"
@@ -1203,7 +1195,7 @@
                 >Read the official Short Papers call</a
               >
             </article>
-            <article class="reference-card" data-track="star" data-first-submission="2025-10-13">
+            <article class="reference-card" data-track="star" data-first-submission="2026-01-12">
               <header>
                 <div>
                   <h3>STARs</h3>
@@ -1211,15 +1203,16 @@
                 </div>
                 <span class="chip reference">Reference · 2026</span>
               </header>
+              <aside class="track-note">
+                EuroVis 2027 does not use the two-stage STAR sketch-and-invitation process in this 2026 reference.
+                <a
+                  href="https://eurovis27.github.io/web/submissions/stars/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >See the official STARs page</a
+                >.
+              </aside>
               <ul>
-                <li>
-                  STAR sketch submission
-                  <time datetime="2025-10-13">13 Oct 2025</time>
-                </li>
-                <li>
-                  Invitation for full STAR
-                  <time datetime="2025-11-05">5 Nov 2025</time>
-                </li>
                 <li>
                   Full STAR submission
                   <time datetime="2026-01-12">12 Jan 2026</time>
