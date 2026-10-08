@@ -143,6 +143,17 @@
         font-size: clamp(1.45rem, 3vw, 2.3rem);
         letter-spacing: -0.045em;
       }
+      .updated-at {
+        margin: 3px 0 0;
+        color: var(--muted);
+        font-size: 0.8rem;
+        font-weight: 650;
+      }
+      .updated-at time {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-underline-offset: 3px;
+      }
       .legend {
         display: flex;
         flex-wrap: wrap;
@@ -602,6 +613,10 @@
           padding-left: 0;
           background: none;
         }
+        /* Month dividers belong to the horizontal date scale, not the mobile list. */
+        .month-divider {
+          display: none;
+        }
         .plot::before {
           top: 10px;
           bottom: 10px;
@@ -734,10 +749,15 @@
     <main class="shell">
       <section aria-labelledby="timeline-heading">
         <div class="timeline-top">
-          <h2 id="timeline-heading">Calls &amp; milestones</h2>
+          <div>
+            <h2 id="timeline-heading">Calls &amp; milestones</h2>
+            <p class="updated-at" id="updated-at" aria-live="polite">
+              Updated on <time datetime="2026-10-08" title="8 October 2026">8 October 2026</time>
+            </p>
+          </div>
           <div class="legend">
             <p>
-              <span class="chip published">Published · 2027</span> Workshops
+              <span class="chip published">Published · 2027</span> STARs &amp; Workshops
             </p>
             <p>
               <span class="chip reference">Reference · 2026</span> pending calls
@@ -898,63 +918,74 @@
                 ></button>
               </div>
             </div>
-            <div class="lane" data-track="star" data-first-submission="2026-01-12" style="--track: #a78200">
-              <div class="lane-label">STARs<small>Reference · 2026</small></div>
+            <div class="lane" data-track="star" data-first-submission="2026-11-30" style="--track: #a78200">
+              <div class="lane-label">STARs<small>Published · 2027</small></div>
               <div class="plot">
                 <button
                   class="event"
-                  style="--at: 24"
-                  data-short="Full STAR"
-                  data-mobile="Full STAR submission · 12 Jan 2026"
+                  style="--at: 22.1"
+                  data-short="Abstract"
+                  data-mobile="Abstract deadline · 30 Nov 2026"
                   data-track="STARs"
-                  data-name="Full STAR submission"
-                  data-date="12 Jan 2026"
-                  data-status="EuroVis 2026 reference"
-                  data-url="https://eurovis27.github.io/web/"
+                  data-name="Abstract deadline"
+                  data-date="30 Nov 2026"
+                  data-status="Published · 2027"
+                  data-url="https://eurovis27.github.io/web/submissions/all-deadlines/"
                 ></button
                 ><button
                   class="event is-low"
-                  style="--at: 40"
-                  data-short="Notify"
-                  data-mobile="Full STAR notification · 12 Mar 2026"
+                  style="--at: 24.6"
+                  data-short="Submit"
+                  data-mobile="Submission deadline · 7 Dec 2026"
                   data-track="STARs"
-                  data-name="Full STAR notification"
-                  data-date="12 Mar 2026"
-                  data-status="EuroVis 2026 reference"
-                  data-url="https://eurovis27.github.io/web/"
+                  data-name="Submission deadline"
+                  data-date="7 Dec 2026"
+                  data-status="Published · 2027"
+                  data-url="https://eurovis27.github.io/web/submissions/all-deadlines/"
                 ></button
                 ><button
                   class="event"
-                  style="--at: 45.8"
-                  data-short="Round 2"
-                  data-mobile="Second-round submission · 3 Apr 2026"
+                  style="--at: 45.6"
+                  data-short="Round 1"
+                  data-mobile="First-round notification · 2 Feb 2027"
                   data-track="STARs"
-                  data-name="Second-round submission"
-                  data-date="3 Apr 2026"
-                  data-status="EuroVis 2026 reference"
-                  data-url="https://eurovis27.github.io/web/"
+                  data-name="First-round notification"
+                  data-date="2 Feb 2027"
+                  data-status="Published · 2027"
+                  data-url="https://eurovis27.github.io/web/submissions/all-deadlines/"
                 ></button
                 ><button
                   class="event is-low"
-                  style="--at: 47.1"
-                  data-short="Review"
-                  data-mobile="Second review notification · 8 Apr 2026"
+                  style="--at: 52.9"
+                  data-short="Revision"
+                  data-mobile="Revision submission · 22 Feb 2027"
                   data-track="STARs"
-                  data-name="Second review notification"
-                  data-date="8 Apr 2026"
-                  data-status="EuroVis 2026 reference"
-                  data-url="https://eurovis27.github.io/web/"
+                  data-name="Revision submission"
+                  data-date="22 Feb 2027"
+                  data-status="Published · 2027"
+                  data-url="https://eurovis27.github.io/web/submissions/all-deadlines/"
                 ></button
                 ><button
                   class="event"
-                  style="--at: 50.8"
+                  style="--at: 58.1"
+                  data-short="Final"
+                  data-mobile="Final notification · 8 Mar 2027"
+                  data-track="STARs"
+                  data-name="Final notification"
+                  data-date="8 Mar 2027"
+                  data-status="Published · 2027"
+                  data-url="https://eurovis27.github.io/web/submissions/all-deadlines/"
+                ></button
+                ><button
+                  class="event is-low"
+                  style="--at: 63.2"
                   data-short="Camera-ready"
-                  data-mobile="Camera-ready deadline · 22 Apr 2026"
+                  data-mobile="Camera-ready submission · 22 Mar 2027"
                   data-track="STARs"
-                  data-name="Camera-ready deadline"
-                  data-date="22 Apr 2026"
-                  data-status="EuroVis 2026 reference"
-                  data-url="https://eurovis27.github.io/web/"
+                  data-name="Camera-ready submission"
+                  data-date="22 Mar 2027"
+                  data-status="Published · 2027"
+                  data-url="https://eurovis27.github.io/web/submissions/all-deadlines/"
                 ></button>
               </div>
             </div>
@@ -1195,50 +1226,45 @@
                 >Read the official Short Papers call</a
               >
             </article>
-            <article class="reference-card" data-track="star" data-first-submission="2026-01-12">
+            <article class="reference-card" data-track="star" data-first-submission="2026-11-30">
               <header>
                 <div>
                   <h3>STARs</h3>
-                  <p>EuroVis 2026 reference</p>
+                  <p>EuroVis 2027 published schedule</p>
                 </div>
-                <span class="chip reference">Reference · 2026</span>
+                <span class="chip published">Published · 2027</span>
               </header>
-              <aside class="track-note">
-                EuroVis 2027 does not use the two-stage STAR sketch-and-invitation process in this 2026 reference.
-                <a
-                  href="https://eurovis27.github.io/web/submissions/stars/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >See the official STARs page</a
-                >.
-              </aside>
               <ul>
                 <li>
-                  Full STAR submission
-                  <time datetime="2026-01-12">12 Jan 2026</time>
+                  Abstract deadline
+                  <time datetime="2026-11-30">30 Nov 2026</time>
                 </li>
                 <li>
-                  Full STAR notification
-                  <time datetime="2026-03-12">12 Mar 2026</time>
+                  Submission deadline
+                  <time datetime="2026-12-07">7 Dec 2026</time>
                 </li>
                 <li>
-                  Second-round submission
-                  <time datetime="2026-04-03">3 Apr 2026</time>
+                  First-round notification
+                  <time datetime="2027-02-02">2 Feb 2027</time>
                 </li>
                 <li>
-                  Second review notification
-                  <time datetime="2026-04-08">8 Apr 2026</time>
+                  Revision submission
+                  <time datetime="2027-02-22">22 Feb 2027</time>
                 </li>
                 <li>
-                  Camera-ready deadline
-                  <time datetime="2026-04-22">22 Apr 2026</time>
+                  Final notification
+                  <time datetime="2027-03-08">8 Mar 2027</time>
+                </li>
+                <li>
+                  Camera-ready submission
+                  <time datetime="2027-03-22">22 Mar 2027</time>
                 </li>
               </ul>
               <a
-                href="https://eurovis27.github.io/web/submissions/stars/"
+                href="https://eurovis27.github.io/web/submissions/all-deadlines/"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Read the official STARs call</a
+                >Read the official all-deadlines page</a
               >
             </article>
             <article class="reference-card" data-track="panels" data-first-submission="2026-02-25">
@@ -1351,7 +1377,7 @@
         </section>
       </section>
       <p class="status">
-        <strong>About the dates.</strong> Workshops are published EuroVis 2027
+        <strong>About the dates.</strong> STARs and Workshops are published EuroVis 2027
         dates. Other lanes are a <strong>2027 planning projection</strong> of
         EuroVis 2026 reference milestones. Confirm pending calls on the official EuroVis 2027 website.
       </p>
@@ -1380,6 +1406,9 @@
       const conferenceMarker = document.querySelector(".conference-marker");
       const todayDescription = document.querySelector("#today-description");
       const axisMonths = document.querySelector(".axis-months");
+      const updatedAt = document.querySelector("#updated-at");
+      // Keep this as the single date to edit whenever the tracked schedule changes.
+      const LAST_UPDATED = "2026-10-08";
       const monthNumbers = {
         Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
         Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11,
@@ -1398,6 +1427,18 @@
         return match
           ? new Date(Number(match[3]), monthNumbers[match[2]], Number(match[1]))
           : null;
+      };
+      const renderUpdatedAt = () => {
+        const updated = new Date(`${LAST_UPDATED}T00:00:00`);
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const days = Math.max(0, Math.floor((today - updated) / 86_400_000));
+        const exact = new Intl.DateTimeFormat("en", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }).format(updated);
+        updatedAt.innerHTML = `Updated ${days} ${days === 1 ? "day" : "days"} ago <time datetime="${LAST_UPDATED}" title="${exact}">(${exact})</time>`;
       };
       const isPublished = (event) => event.dataset.status.startsWith("Published");
       const timelineStart = () => new Date(`${timeline.dataset.start}T00:00:00`);
@@ -1478,6 +1519,7 @@
         );
       };
 
+      renderUpdatedAt();
       projectMilestones();
       buildDateScale();
 
@@ -1564,8 +1606,8 @@
               label: "Read the official Short Papers call",
             },
             STARs: {
-              url: "https://eurovis27.github.io/web/submissions/stars/",
-              label: "Read the official STARs call",
+              url: "https://eurovis27.github.io/web/submissions/all-deadlines/",
+              label: "Read the official STAR deadlines",
             },
             "Panels & Tutorials": {
               url: "https://eurovis27.github.io/web/submissions/panels-tutorials/",
