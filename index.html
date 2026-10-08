@@ -1148,8 +1148,7 @@
           <span class="details-dot" aria-hidden="true"></span>
           <p>
             <strong>Select a milestone</strong><br /><span class="detail-meta"
-              >Use a dot on the date scale to read its full date and
-              status.</span
+              >Use a dot on the date scale to read its full date.</span
             >
           </p>
         </div>
@@ -1487,17 +1486,12 @@
           if (!date) return;
           if (!isPublished(event)) date.setFullYear(date.getFullYear() + 1);
           const projected = formatDate(date);
-          event.dataset.sourceDate = sourceDate;
           event.dataset.plannedDate = isoDate(date);
-          event.dataset.date = isPublished(event)
-            ? projected
-            : `${projected} (projected; reference: ${sourceDate})`;
+          event.dataset.date = projected;
           event.dataset.status = isPublished(event)
             ? "Published · 2027"
             : "Reference · 2026 — projected for 2027";
-          event.dataset.mobile = isPublished(event)
-            ? `${event.dataset.name} · ${projected} · Published · 2027`
-            : `${event.dataset.name} · ${projected} · Reference · 2026 projection`;
+          event.dataset.mobile = `${event.dataset.name} · ${projected}`;
           const start = new Date(`${timeline.dataset.start}T00:00:00`);
           const end = new Date(`${timeline.dataset.end}T23:59:59`);
           event.style.setProperty("--at", ((date - start) / (end - start)) * 100);
@@ -1590,7 +1584,7 @@
       events.forEach((event) => {
         event.setAttribute(
           "aria-label",
-          `${event.dataset.track}: ${event.dataset.name}, ${event.dataset.date}. ${event.dataset.status}.`,
+          `${event.dataset.track}: ${event.dataset.name}, ${event.dataset.date}.`,
         );
         event.addEventListener("click", () => {
           events.forEach((item) =>
@@ -1629,7 +1623,7 @@
             "--selected",
             getComputedStyle(event).getPropertyValue("--track"),
           );
-          details.innerHTML = `<span class="details-dot" aria-hidden="true"></span><p><strong>${event.dataset.track} · ${event.dataset.name}</strong><br><span class="detail-meta">${event.dataset.date} · ${event.dataset.status}</span></p><a class="call-link" href="${linkUrl}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
+          details.innerHTML = `<span class="details-dot" aria-hidden="true"></span><p><strong>${event.dataset.track} · ${event.dataset.name}</strong><br><span class="detail-meta">${event.dataset.date}</span></p><a class="call-link" href="${linkUrl}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
         });
       });
     </script>
