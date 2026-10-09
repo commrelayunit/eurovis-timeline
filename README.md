@@ -2,6 +2,8 @@
 
 A responsive, accessible visual date timeline for EuroVis 2027 in Stuttgart, Germany.
 
+The conference runs **31 May–4 June 2027**.
+
 ## Date status
 
 The page intentionally distinguishes two kinds of information:
@@ -16,7 +18,7 @@ The page intentionally distinguishes two kinds of information:
 - Status labels and a compact legend keep published 2027 Workshops dates visibly distinct from 2026 reference dates.
 - A compact, filter-synchronised track reference sits below the visualization for exact milestone lookup.
 - Both the visual lanes and reference cards are ordered by each track's first remaining submission-stage date, rather than by call type.
-- A date-scale Today marker shows the current point in the displayed range and labels itself when today falls before or after it.
+- Date-scale Today and conference markers show the current point and the 31 May 2027 conference start.
 - On small screens, each lane becomes a deliberately vertical chronological spine rather than a compressed desktop plot.
 - Original text-based visual identity; no official logo or artwork is reproduced.
 
